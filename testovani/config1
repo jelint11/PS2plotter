@@ -1,0 +1,11 @@
+TimeformaT [%Y/%m/%d %H:%M:%S]
+Xmax auto 
+Xmin auto
+Ymax auto
+Ymin auto
+Speed 10 
+FPS 5 
+Legend Example animation - Simple effect
+Name test_animation
+GnuplotParams  xlabel "Cas"
+GnuplotParams ylabel "Hodnota"

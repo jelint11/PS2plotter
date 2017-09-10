@@ -1,0 +1,67 @@
+#!/bin/bash
+
+ROOT="/home/jelint11/Desktop/semestralka";
+
+if [ -f "$ROOT"/lib.sh -a -r "$ROOT"/lib.sh ]; then
+  source "$ROOT"/lib.sh
+else
+  echo "[Error]: Nepodarilo se nacist zdrojovou knihovnu "$ROOT"/lib.sh." 1>&2;
+  exit 1;
+fi
+
+if [ -f "$ROOT"/parseparameters.sh -a -r "$ROOT"/parseparameters.sh ]; then
+  source "$ROOT"/parseparameters.sh
+else 
+  echo "[Error]: Nepodarilo se nacist zdrojovou knihovnu "$ROOT"/parseparameters.sh." 1>&2;
+  exit 1;
+fi 
+
+if [ -f "$ROOT"/processdata.sh -a -r "$ROOT"/processdata.sh ]; then
+  source "$ROOT"/processdata.sh
+else 
+  echo "[Error]: Nepodarilo se nacist zdrojovou knihovnu "$ROOT"/processdata.sh." 1>&2;
+  exit 1;
+fi 
+
+if [ -f "$ROOT"/generateframes.sh -a -r "$ROOT"/generateframes.sh ]; then
+  source "$ROOT"/generateframes.sh
+else 
+  echo "[Error]: Nepodarilo se nacist zdrojovou knihovnu "$ROOT"/generateframes.sh." 1>&2;
+  exit 1;
+fi 
+
+
+
+#test potrebnych programu
+result=$(which "python")
+[ "$result" == "" ] && err "Python is not installed."
+result=$(which "gnuplot")
+[ "$result" == "" ] && err "Gnuplot is not installed."
+result=$(which "ffmpeg")
+[ "$result" == "" ] && err "ffmpeg is not installed."
+result=$(which "convert")
+[ "$result" == "" ] && err "convert is not installed."
+
+
+###############################################
+#Zacatek skriptu
+###############################################
+setVariables;
+parseParameters "${@}";
+if [ "$CONFIG" != "" ]; then
+  testFile "$CONFIG";
+  parseconfig "$CONFIG"; 
+fi
+trap control_c SIGINT
+trap control_c SIGTERM
+examineData;
+mergeVariables;
+testDataValidity;
+sortFiles;
+prepareData;
+computePlot;
+[ "$VERBOSE" == "true" ] && printVariables;
+generateFrames;
+cleanAll;
+exit 0;
+

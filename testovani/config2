@@ -1,0 +1,12 @@
+TimeformaT %Y/%m/%d
+Xmax auto 
+Xmin min
+Ymax auto
+Ymin auto
+Speed 8 
+FPS 15 
+Legend Example animation - Simple effect
+EffectParams grow=blue:fall=yellow
+Name test_animation
+GnuplotParams  xlabel "Cas"
+GnuplotParams ylabel "Hodnota"

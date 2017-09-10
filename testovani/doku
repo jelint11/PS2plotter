@@ -1,0 +1,3 @@
+./semestralka.sh -v -F 25 -S 7   -f config.conf -t "[%H:%M:%S %d.%m.%Y]" http://goo.gl/AsyLD
+
+ ./semestralka.sh -v -F 25 -S 7  -f config.conf -t "[%Y/%m/%d %H:%M:%S"] -y auto sin_day_real.data -E
